@@ -14,9 +14,9 @@ SlimLogger tries to be as lean as possible, but still flexible enough to fit the
    This filtering is done in the central log config class, so you don't need to edit individual source files.
   * **Async, serial logging** - Logging is done asynchronously on a separate serial thread, making sure that log entries are printed in the correct
   order, without blocking the main thread.
-  * **No unneccesary code execution** - Log messages are autoclosures, so code evaluations in the log messages are only executed if the loglevel
+  * **No unnecessary code execution** - Log messages are autoclosures, so code evaluations in the log messages are only executed if the loglevel
    matches the log level set in the config.
-  * **Injectable log destinations** - Besides logging to the console, you can also inject your own custom log destination class. 
+  * **Injectable log destinations** - Besides logging to the console, you can also inject your own custom log destination classes. 
   Just create a class that implements a single method in the `LogDestination` protocol. There is already a premade 
    [log destination class for logging to the cloud service Loggly](README-LogglyDestination.md).
   
