@@ -8,7 +8,7 @@ struct SlimLogglyConfig {
     // exits the app.
     static let maxEntriesInBuffer = 100
 
-    // Loglevel for the Loggly destination
-    static let logglyLogLevel = LogLevel.info
+    // Loglevel for the Loggly destination. Can be set to another level during runtime
+    static var logglyLogLevel = LogLevel.info
 
 }

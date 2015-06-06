@@ -22,14 +22,36 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="buttonTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="zMp-8v-cQA"/>
+                                    <action selector="createLogentryButtonTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="f4z-w8-XDs"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IeK-Ei-Mf4">
+                                <rect key="frame" x="112" y="115" width="111" height="30"/>
+                                <state key="normal" title="Set level = trace">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="traceLevelButtonTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="6Kb-Xn-P8x"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XlU-Ce-crv">
+                                <rect key="frame" x="112" y="174" width="102" height="30"/>
+                                <state key="normal" title="Set level = info">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="infoLevelButtonTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="xl9-hv-j2s"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="vUG-7O-bK7" secondAttribute="centerX" id="90I-RW-ICs"/>
+                            <constraint firstItem="IeK-Ei-Mf4" firstAttribute="top" secondItem="vUG-7O-bK7" secondAttribute="bottom" constant="33" id="AI2-BB-55v"/>
+                            <constraint firstAttribute="centerX" secondItem="XlU-Ce-crv" secondAttribute="centerX" id="KbE-MG-HqD"/>
                             <constraint firstAttribute="centerY" secondItem="vUG-7O-bK7" secondAttribute="centerY" id="T6Y-5j-xaU"/>
+                            <constraint firstItem="XlU-Ce-crv" firstAttribute="top" secondItem="IeK-Ei-Mf4" secondAttribute="bottom" constant="29" id="XrL-Wx-XcI"/>
+                            <constraint firstAttribute="centerX" secondItem="IeK-Ei-Mf4" secondAttribute="centerX" id="mS2-DB-K78"/>
                         </constraints>
                     </view>
                 </viewController>

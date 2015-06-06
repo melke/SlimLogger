@@ -12,7 +12,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        Slim.debug("Debug in viewDidLoad")
     }
 
     override func didReceiveMemoryWarning() {
@@ -20,10 +20,17 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    @IBAction func buttonTapped(sender: AnyObject) {
-        Slim.info("Simple string message \(NSDate())")
+    @IBAction func createLogentryButtonTapped(sender: AnyObject) {
+        Slim.debug("Debug log message")
+        Slim.info("Info log message")
         Slim.info(["Dictionary key": "Date: \(NSDate())","Another key":"Forza Bajen"])
     }
 
+    @IBAction func traceLevelButtonTapped(sender: AnyObject) {
+        SlimConfig.consoleLogLevel = LogLevel.trace
+    }
+    @IBAction func infoLevelButtonTapped(sender: AnyObject) {
+        SlimConfig.consoleLogLevel = LogLevel.info
+    }
 }
 

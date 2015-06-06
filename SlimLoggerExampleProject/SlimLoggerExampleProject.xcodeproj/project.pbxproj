@@ -30,6 +30,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		62F8E35431DDDA201AA35A2D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = file.md; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		62F8E9912E7BEC3116FD6248 /* README-LogglyDestination.md */ = {isa = PBXFileReference; lastKnownFileType = file.md; name = "README-LogglyDestination.md"; path = "../README-LogglyDestination.md"; sourceTree = "<group>"; };
+		62F8EAF044197ACE5F9A877C /* LICENSE.TXT */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE.TXT; path = ../LICENSE.TXT; sourceTree = "<group>"; };
 		E51237911B2239DB002EABDC /* SlimLoggerExampleProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlimLoggerExampleProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E51237951B2239DB002EABDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E51237961B2239DB002EABDC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -73,6 +76,9 @@
 				E51237931B2239DB002EABDC /* SlimLoggerExampleProject */,
 				E51237A91B2239DB002EABDC /* SlimLoggerExampleProjectTests */,
 				E51237921B2239DB002EABDC /* Products */,
+				62F8E35431DDDA201AA35A2D /* README.md */,
+				62F8E9912E7BEC3116FD6248 /* README-LogglyDestination.md */,
+				62F8EAF044197ACE5F9A877C /* LICENSE.TXT */,
 			);
 			sourceTree = "<group>";
 		};

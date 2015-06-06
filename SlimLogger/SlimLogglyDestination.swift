@@ -9,6 +9,7 @@ import UIKit
 
 class SlimLogglyDestination: LogDestination {
 
+    var userid:String?
     private let dateFormatter = NSDateFormatter()
     private var buffer:[String] = [String]()
     private var backgroundTaskIdentifier: UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
@@ -20,6 +21,9 @@ class SlimLogglyDestination: LogDestination {
         if let infodict = NSBundle.mainBundle().infoDictionary {
             if let appname = infodict["CFBundleName"] as? String {
                 dict["appname"] = appname
+            }
+            if let appname = infodict["CFBundleVersion"] as? String {
+                dict["appversion"] = appname
             }
         }
         dict["devicename"] = UIDevice.currentDevice().name
@@ -94,6 +98,9 @@ class SlimLogglyDestination: LogDestination {
         mutableDict.setObject(dateFormatter.stringFromDate(NSDate()), forKey: "timestamp")
         mutableDict.setObject("\(filename):\(line)", forKey: "sourcelocation")
         mutableDict.addEntriesFromDictionary(standardFields as [NSObject : AnyObject])
+        if let user = self.userid {
+            mutableDict.setObject(user, forKey: "userid")
+        }
 
         if let jsondata = toJson(mutableDict) {
             jsonstr = toJsonString(jsondata)
@@ -143,7 +150,7 @@ class SlimLogglyDestination: LogDestination {
     }
 
     private func traceMessage(msg:String) {
-        if SlimConfig.enableConsoleLogging && SlimConfig.consoleLogLevel == LogLevel.trace {
+        if SlimConfig.enableConsoleLogging && SlimLogglyConfig.logglyLogLevel == LogLevel.trace {
             println(msg)
         }
     }
