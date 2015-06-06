@@ -22,12 +22,12 @@ SlimLogger tries to be as lean as possible, but still flexible enough to fit the
   
 ##Installation
 
-  * Add SlimLogger.swift and SlimLoggerConfig.template to your project
-  * Rename SlimLoggerConfig.template to SlimLoggerConfig.swift
+  * Add `SlimLogger.swift` and `SlimLoggerConfig.template` to your project
+  * Rename `SlimLoggerConfig.template` to `SlimLoggerConfig.swift`
   
 ##Configuration
 
-  * Edit SlimLoggConfig.swift. (See instructions in the config file)
+  * Edit `SlimLoggerConfig.swift`. (See instructions in the config file)
 
 ##Usage
 
