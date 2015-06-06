@@ -6,18 +6,18 @@ SlimLogger tries to be as lean as possible, but still flexible enough to fit the
 
 ##Features
 
-  * **Easy installation** - If you only want console logging, you only need to add one single file to your project.
+  * **Easy installation** - If you only want console logging, you only need to add one file and one config file to your project.
   * **Easy usage** - No initialization needed, just make the logging calls.
-  * **Easy configuration** - All config are done by changing static properties in a central config file.
+  * **Easy configuration** - All config is done by changing static properties in a central config file.
   * **Log levels** - Log at different log levels
   * **Log filtering** - Enable logging from all your source files, or enable logging only for a single source file or a list of source files.
-   This filtering is done in the central log config class, so you don't need to edit individual source file to filter logging.
+   This filtering is done in the central log config class, so you don't need to edit individual source files.
   * **Async, serial logging** - Logging is done asynchronously on a separate serial thread, making sure that log entries are printed in the correct
   order, without blocking the main thread.
   * **No unneccesary code execution** - Log messages are autoclosures, so code evaluations in the log messages are only executed if the loglevel
    matches the log level set in the config.
-  * **Injectable log destinations** - Besides logging to the console, you can also inject your custom log destination classes. 
-  All you need to do is to create a class that implements a single method in the `LogDestination` protocol. There is already a premade 
+  * **Injectable log destinations** - Besides logging to the console, you can also inject your own custom log destination class. 
+  Just create a class that implements a single method in the `LogDestination` protocol. There is already a premade 
    [log destination class for logging to the cloud service Loggly](README-LogglyDestination.md).
   
 ##Installation
@@ -48,5 +48,5 @@ or just send an email to [mats.melke@gmail.com](mailto:mats.melke@gmail.com).
 
 ##License
 
-* Copyright (c) 2015- Mats Melke. Please see LICENSE.TXT for details.
+* Copyright (c) 2015- Mats Melke. Please see LICENSE for details.
 

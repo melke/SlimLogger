@@ -57,4 +57,4 @@ or just send an email to [mats.melke@gmail.com](mailto:mats.melke@gmail.com).
 
 ##License
 
-* Copyright (c) 2015- Mats Melke. Please see LICENSE.TXT for details.
+* Copyright (c) 2015- Mats Melke. Please see LICENSE for details.
