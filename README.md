@@ -27,7 +27,7 @@ SlimLogger tries to be as lean as possible, but still flexible enough to fit the
   
 ##Configuration
 
-  * Edit `SlimLoggerConfig.swift`. (See instructions in the config file)
+  * Edit `SlimLoggerConfig.swift`. (See instructions in the config file.)
 
 ##Usage
 
