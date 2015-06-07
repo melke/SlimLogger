@@ -6,16 +6,11 @@ SlimLogger tries to be as lean as possible, but still flexible enough to fit the
 
 ##Features
 
-  * **Easy installation** - If you only want console logging, you only need to add one file and one config file to your project.
-  * **Easy usage** - No initialization needed, just make the logging calls.
-  * **Easy configuration** - All config is done by changing static properties in a central config file.
   * **Log levels** - Log at different log levels
   * **Log filtering** - Enable logging from all your source files, or enable logging only for a single source file or a list of source files.
    This filtering is done in the central log config class, so you don't need to edit individual source files.
   * **Async, serial logging** - Logging is done asynchronously on a separate serial thread, making sure that log entries are printed in the correct
   order, without blocking the main thread.
-  * **No unnecessary code execution** - Log messages are autoclosures, so code evaluations in the log messages are only executed if the loglevel
-   matches the log level set in the config.
   * **Injectable log destinations** - Besides logging to the console, you can also inject your own custom log destination classes. 
   Just create a class that implements a single method in the `LogDestination` protocol. There is already a premade 
    [log destination class for logging to the cloud service Loggly](README-LogglyDestination.md).
@@ -27,7 +22,28 @@ SlimLogger tries to be as lean as possible, but still flexible enough to fit the
   
 ##Configuration
 
-  * Edit `SlimLoggerConfig.swift`. (See instructions in the config file.)
+Edit the SlimConfig struct in `SlimLoggerConfig.swift`
+ 
+```swift
+struct SlimConfig {
+    // Enable or disable console logging. When releasing your app, you should set this to false.
+    static let enableConsoleLogging = true
+
+    // Log level for console logging, can be set during runtime
+    static var consoleLogLevel = LogLevel.trace
+
+    // Either let all logging through, or specify a list of enabled source files.
+    // So, either let all files log:
+    static let sourceFilesThatShouldLog:SourceFilesThatShouldLog = .All
+    // Or let specific files log:
+    static let sourceFilesThatShouldLog:SourceFilesThatShouldLog = .EnabledSourceFiles([
+             "AppDelegate.swift",
+             "AnotherSourceFile.swift"
+    ])
+    // Or don't let any class log (use to turn off all logging to for all destinations):
+    static let sourceFilesThatShouldLog:SourceFilesThatShouldLog = .None
+} 
+```
 
 ##Usage
 
