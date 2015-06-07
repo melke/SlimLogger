@@ -6,14 +6,15 @@ SlimLogger tries to be as lean as possible, but still flexible enough to fit the
 
 ##Features
 
-  * **Log levels** - Log at different log levels
-  * **Log filtering** - Enable logging from all your source files, or enable logging only for a single source file or a list of source files.
+  * **Log levels** - Log at different log levels. Log levels are set by log destination, not by class.
+  * **Log filtering** - Enable logging from all your source files, or enable logging only for a list of source files.
    This filtering is done in the central log config class, so you don't need to edit individual source files.
-  * **Async, serial logging** - Logging is done asynchronously on a separate serial thread, making sure that log entries are printed in the correct
-  order, without blocking the main thread.
+  * **Log formatting** - The console log destination will log timestamp, level, source filename, line number and the message.
   * **Injectable log destinations** - Besides logging to the console, you can also inject your own custom log destination classes. 
   Just create a class that implements a single method in the `LogDestination` protocol. There is already a premade 
    [log destination class for logging to the cloud service Loggly](README-LogglyDestination.md).
+  * **Async, serial logging** - Logging is done asynchronously on a separate serial thread, making sure that log entries are printed in the correct
+  order, without blocking the main thread.
   
 ##Installation
 

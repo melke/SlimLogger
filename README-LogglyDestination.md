@@ -36,8 +36,8 @@ This is all there is to it. The log posts will include your log message plus som
 
 Note that if you log a type that can be casted to an NSDictionary, all dictionary keys will be logged as separate keys
 to Loggly. This makes it much easier to do filtered field searches in Loggly. 
-Word of warning, don't use too many different json keys, it will make it harder to get a good overlook of your data 
-in the Loggly UI. Figure out smart json keys that you can reuse in many of your log statements.
+Word of warning, don't use too many different keys, it will make it harder to get a good overlook of your data 
+in the Loggly UI. Figure out smart keys that you can reuse in many of your log statements.
 
 ##Tracking users
 
