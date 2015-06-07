@@ -46,9 +46,7 @@ will then be included in every log statement until the app is terminated by iOS.
 
 Let's say that a user complains about having problems in your app. You can then search the Loggly UI for all log entries
 that this user has created. You can also have some secret button in your app, and when the user taps this
-button, you can set the log level to a finer level in SlimLogglyConfig. Now you can follow
-the detailed logs in Loggly for this particular user, by filtering out all but this particular session.
-Pretty nice, huh?
+button, you can set the log level to a finer level in SlimLogglyConfig. Pretty nice, huh?
 
 ##Feedback and Contribution
 
