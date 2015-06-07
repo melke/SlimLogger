@@ -57,6 +57,9 @@ Slim.error("message")
 Slim.fatal("message")    
 ```
 
+The message does not have to be a String. It can be any object, or any expression that returns an object. However, if the type 
+of the returned object does not implement Printable, the output would not be interesting.
+
 ##Feedback and Contribution
 
 All feedback and contribution is very appreciated. For example, contribute with a new log destination class! 
