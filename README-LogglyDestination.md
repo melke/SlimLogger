@@ -1,6 +1,7 @@
 # SlimLogger - Loggly Destination
 
-The Loggly destination logs to the cloud service [Loggly](https://www.loggly.com/).
+The Loggly destination logs to the cloud service [Loggly](https://www.loggly.com/). Log messages will be locally saved in a buffer
+and posted to Loggly at app exit or when a configurable amount of log messages has been logged.
 
 ##Installation
 
