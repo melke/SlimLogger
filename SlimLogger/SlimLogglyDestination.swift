@@ -6,6 +6,8 @@
 import Foundation
 import UIKit
 
+private let logglyQueue: dispatch_queue_t = dispatch_queue_create(
+	"slimlogger.loggly", DISPATCH_QUEUE_SERIAL)
 
 class SlimLogglyDestination: LogDestination {
 
@@ -109,7 +111,7 @@ class SlimLogglyDestination: LogDestination {
     }
 
     private func addLogMsgToBuffer(msg:String) {
-        dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_BACKGROUND.value), 0)) {
+        dispatch_async(logglyQueue) {
             self.buffer.append(msg)
             if self.buffer.count > SlimLogglyConfig.maxEntriesInBuffer {
                 let tmpbuffer = self.buffer
