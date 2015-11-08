@@ -17,9 +17,7 @@ class SlimLogglyDestination: LogDestination {
     private var backgroundTaskIdentifier: UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
     private lazy var standardFields:NSDictionary = {
         let dict = NSMutableDictionary()
-        if let lang = NSLocale.preferredLanguages()[0] as? String {
-            dict["lang"] = lang
-        }
+        dict["lang"] = NSLocale.preferredLanguages()[0]
         if let infodict = NSBundle.mainBundle().infoDictionary {
             if let appname = infodict["CFBundleName"] as? String {
                 dict["appname"] = appname
@@ -56,12 +54,10 @@ class SlimLogglyDestination: LogDestination {
         do {
             let json = try NSJSONSerialization.dataWithJSONObject(dictionary, options: NSJSONWritingOptions(rawValue: 0))
             return json
-        } catch var error1 as NSError {
+        } catch let error1 as NSError {
             err = error1
             let error = err?.description ?? "nil"
             NSLog("ERROR: Unable to serialize json, error: %@", error)
-//            NSNotificationCenter.defaultCenter().postNotificationName("CrashlyticsLogNotification", object: self, userInfo: ["string": "unable to serialize json, error: \(error)"])
-//            abort()
             return nil
         }
     }
@@ -127,7 +123,7 @@ class SlimLogglyDestination: LogDestination {
         let allMessagesString = stringbuffer.joinWithSeparator("\n")
         self.traceMessage("LOGGLY: will try to post \(allMessagesString)")
         if let allMessagesData = (allMessagesString as NSString).dataUsingEncoding(NSUTF8StringEncoding) {
-            var urlRequest = NSMutableURLRequest(URL: NSURL(string: SlimLogglyConfig.logglyUrlString)!)
+            let urlRequest = NSMutableURLRequest(URL: NSURL(string: SlimLogglyConfig.logglyUrlString)!)
             urlRequest.HTTPMethod = "POST"
             urlRequest.HTTPBody = allMessagesData
             NSURLConnection.sendAsynchronousRequest(urlRequest, queue: NSOperationQueue(), completionHandler: {
@@ -136,7 +132,9 @@ class SlimLogglyDestination: LogDestination {
                     // got an error from Loggly
                     self.traceMessage("Error from Loggly: \(anError)")
                 } else {
-                    self.traceMessage("Posted to Loggly, status = \(NSString(data: responsedata, encoding:NSUTF8StringEncoding))")
+                    if let data = responsedata {
+                        self.traceMessage("Posted to Loggly, status = \(NSString(data: data, encoding:NSUTF8StringEncoding))")
+                    }
                 }
                 if self.backgroundTaskIdentifier != UIBackgroundTaskInvalid {
                     self.endBackgroundTask()
