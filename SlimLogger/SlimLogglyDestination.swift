@@ -53,9 +53,11 @@ class SlimLogglyDestination: LogDestination {
     private func toJson(dictionary: NSDictionary) -> NSData? {
 
         var err: NSError?
-        if let json = NSJSONSerialization.dataWithJSONObject(dictionary, options: NSJSONWritingOptions(0), error: &err) {
+        do {
+            let json = try NSJSONSerialization.dataWithJSONObject(dictionary, options: NSJSONWritingOptions(rawValue: 0))
             return json
-        } else {
+        } catch var error1 as NSError {
+            err = error1
             let error = err?.description ?? "nil"
             NSLog("ERROR: Unable to serialize json, error: %@", error)
 //            NSNotificationCenter.defaultCenter().postNotificationName("CrashlyticsLogNotification", object: self, userInfo: ["string": "unable to serialize json, error: \(error)"])
@@ -85,7 +87,7 @@ class SlimLogglyDestination: LogDestination {
         }
 
         var jsonstr = ""
-        var mutableDict:NSMutableDictionary = NSMutableDictionary()
+        let mutableDict:NSMutableDictionary = NSMutableDictionary()
         var messageIsaDictionary = false
         if let msgdict = message() as? NSDictionary {
             if let nsmsgdict = msgdict as? [NSObject : AnyObject] {
@@ -99,7 +101,7 @@ class SlimLogglyDestination: LogDestination {
         mutableDict.setObject(level.string, forKey: "level")
         mutableDict.setObject(dateFormatter.stringFromDate(NSDate()), forKey: "timestamp")
         mutableDict.setObject("\(filename):\(line)", forKey: "sourcelocation")
-        mutableDict.addEntriesFromDictionary(standardFields as [NSObject : AnyObject])
+        mutableDict.addEntriesFromDictionary(standardFields as! [NSObject : AnyObject])
         if let user = self.userid {
             mutableDict.setObject(user, forKey: "userid")
         }
@@ -122,14 +124,14 @@ class SlimLogglyDestination: LogDestination {
     }
 
     private func sendLogsInBuffer(stringbuffer:[String]) {
-        let allMessagesString = join("\n", stringbuffer)
+        let allMessagesString = stringbuffer.joinWithSeparator("\n")
         self.traceMessage("LOGGLY: will try to post \(allMessagesString)")
         if let allMessagesData = (allMessagesString as NSString).dataUsingEncoding(NSUTF8StringEncoding) {
             var urlRequest = NSMutableURLRequest(URL: NSURL(string: SlimLogglyConfig.logglyUrlString)!)
             urlRequest.HTTPMethod = "POST"
             urlRequest.HTTPBody = allMessagesData
             NSURLConnection.sendAsynchronousRequest(urlRequest, queue: NSOperationQueue(), completionHandler: {
-                (response: NSURLResponse!, responsedata: NSData!, error: NSError!) -> Void in
+                (response: NSURLResponse?, responsedata: NSData?, error: NSError?) -> Void in
                 if let anError = error {
                     // got an error from Loggly
                     self.traceMessage("Error from Loggly: \(anError)")
@@ -147,13 +149,13 @@ class SlimLogglyDestination: LogDestination {
         if self.backgroundTaskIdentifier != UIBackgroundTaskInvalid {
             UIApplication.sharedApplication().endBackgroundTask(self.backgroundTaskIdentifier)
             self.backgroundTaskIdentifier = UIBackgroundTaskInvalid
-            println("Ending background task")
+            print("Ending background task")
         }
     }
 
     private func traceMessage(msg:String) {
         if SlimConfig.enableConsoleLogging && SlimLogglyConfig.logglyLogLevel == LogLevel.trace {
-            println(msg)
+            print(msg)
         }
     }
 }

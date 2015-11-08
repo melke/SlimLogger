@@ -106,7 +106,7 @@ public class Slim {
             return cleanedfile
         } else {
             var retval = ""
-            let items = split(filename, allowEmptySlices: false, isSeparator:{$0=="/"})
+            let items = filename.characters.split(allowEmptySlices: false, isSeparator:{$0=="/"}).map { String($0) }
             if items.count > 0 {
                 retval = items.last!
             }
@@ -122,7 +122,7 @@ public class Slim {
             case .None:
                 return false
             case .EnabledSourceFiles(let enabledFiles):
-                if contains(enabledFiles, cleanedFile) {
+                if enabledFiles.contains(cleanedFile) {
                     return true
                 } else {
                     return false
@@ -146,7 +146,7 @@ class ConsoleDestination: LogDestination {
         if level.rawValue >= SlimConfig.consoleLogLevel.rawValue {
             let msg = message()
             dispatch_async(self.serialLogQueue) {
-                println("\(self.dateFormatter.stringFromDate(NSDate())):\(level.string):\(filename):\(line) - \(msg)")
+                print("\(self.dateFormatter.stringFromDate(NSDate())):\(level.string):\(filename):\(line) - \(msg)")
             }
         }
     }

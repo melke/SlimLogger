@@ -187,6 +187,8 @@
 		E51237891B2239DB002EABDC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0710;
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = Baresi;
 				TargetAttributes = {
@@ -444,6 +446,7 @@
 				E51237B21B2239DB002EABDC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E51237B31B2239DB002EABDC /* Build configuration list for PBXNativeTarget "SlimLoggerExampleProjectTests" */ = {
 			isa = XCConfigurationList;
@@ -452,6 +455,7 @@
 				E51237B51B2239DB002EABDC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
