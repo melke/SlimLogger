@@ -18,8 +18,8 @@ SlimLogger tries to be as lean as possible, but still flexible enough to fit the
   
 ##Installation
 
-  * Add `SlimLogger.swift` and `SlimLoggerConfig.template` to your project
-  * Rename `SlimLoggerConfig.template` to `SlimLoggerConfig.swift`
+  1. Rename `SlimLoggerConfig.template` to `SlimLoggerConfig.swift`
+  2. Add `SlimLogger.swift` and `SlimLoggerConfig.swift` to your project
   
 ##Configuration
 
