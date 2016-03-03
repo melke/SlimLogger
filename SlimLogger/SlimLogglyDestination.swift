@@ -33,10 +33,12 @@ class SlimLogglyDestination: LogDestination {
         return dict
     }()
 
+    private var observer: NSObjectProtocol?
+
     init() {
         dateFormatter.timeZone = NSTimeZone(name: "UTC")
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-        NSNotificationCenter.defaultCenter().addObserverForName("UIApplicationWillResignActiveNotification", object: nil, queue: nil, usingBlock: {
+        observer = NSNotificationCenter.defaultCenter().addObserverForName("UIApplicationWillResignActiveNotification", object: nil, queue: nil, usingBlock: {
             [unowned self] note in
             let tmpbuffer = self.buffer
             self.buffer = [String]()
@@ -48,6 +50,12 @@ class SlimLogglyDestination: LogDestination {
         })
     }
 
+    deinit {
+        if let observer = observer {
+            NSNotificationCenter.defaultCenter().removeObserver(observer)
+        }
+    }
+    
     private func toJson(dictionary: NSDictionary) -> NSData? {
 
         var err: NSError?
