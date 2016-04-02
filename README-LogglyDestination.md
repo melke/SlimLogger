@@ -3,29 +3,6 @@
 The Loggly destination logs to the cloud service [Loggly](https://www.loggly.com/). Log messages will be locally saved in a buffer
 and posted to Loggly at app exit or when a configurable amount of log messages has been logged.
 
-##IMPORTANT MESSAGE
-
-Currently, the Loggly servers are using an SSL certficate that iOS9 considers
-insecure. Until Loggly has replaced their cerificate, you will need to add an
-exception for the Loggly server in your plist file. It will look like this if you
-use the plist editor in Xcode: ![Plist editor](./securityexception.png?raw=true)
-
-If you prefer editing the raw plist xml, you can add the following lines:
-
-```xml
-<key>NSAppTransportSecurity</key>
-<dict>
-  <key>NSExceptionDomains</key>
-  <dict>
-    <key>logs-01.loggly.com</key>
-    <dict>
-      <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
-      <false/>
-    </dict>
-  </dict>
-</dict>
-```
-
 ##Installation
 
   * Add SlimLogglyDestination.swift and SlimLogglyDestinationConfig.template to your project
