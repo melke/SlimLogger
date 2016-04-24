@@ -62,32 +62,32 @@ public class Slim {
     }
 
     public class func trace<T>(@autoclosure message: () -> T,
-        filename: String = __FILE__, line: Int = __LINE__) {
+        filename: String = #file, line: Int = #line) {
         slim.logInternal(message, level: LogLevel.trace, filename: filename, line: line)
     }
 
     public class func debug<T>(@autoclosure message: () -> T,
-        filename: String = __FILE__, line: Int = __LINE__) {
+        filename: String = #file, line: Int = #line) {
         slim.logInternal(message, level: LogLevel.debug, filename: filename, line: line)
     }
 
     public class func info<T>(@autoclosure message: () -> T,
-        filename: String = __FILE__, line: Int = __LINE__) {
+        filename: String = #file, line: Int = #line) {
         slim.logInternal(message, level: LogLevel.info, filename: filename, line: line)
     }
 
     public class func warn<T>(@autoclosure message: () -> T,
-        filename: String = __FILE__, line: Int = __LINE__) {
+        filename: String = #file, line: Int = #line) {
         slim.logInternal(message, level: LogLevel.warn, filename: filename, line: line)
     }
 
     public class func error<T>(@autoclosure message: () -> T,
-        filename: String = __FILE__, line: Int = __LINE__) {
+        filename: String = #file, line: Int = #line) {
         slim.logInternal(message, level: LogLevel.error, filename: filename, line: line)
     }
 
     public class func fatal<T>(@autoclosure message: () -> T,
-        filename: String = __FILE__, line: Int = __LINE__) {
+        filename: String = #file, line: Int = #line) {
         slim.logInternal(message, level: LogLevel.fatal, filename: filename, line: line)
     }
 
