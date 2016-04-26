@@ -134,20 +134,20 @@ class SlimLogglyDestination: LogDestination {
             let urlRequest = NSMutableURLRequest(URL: NSURL(string: SlimLogglyConfig.logglyUrlString)!)
             urlRequest.HTTPMethod = "POST"
             urlRequest.HTTPBody = allMessagesData
-            NSURLConnection.sendAsynchronousRequest(urlRequest, queue: NSOperationQueue(), completionHandler: {
-                (response: NSURLResponse?, responsedata: NSData?, error: NSError?) -> Void in
+            let session = NSURLSession.sharedSession()
+            let task = session.dataTaskWithRequest(urlRequest) { (responsedata: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
                 if let anError = error {
-                    // got an error from Loggly
                     self.traceMessage("Error from Loggly: \(anError)")
+                } else if let data = responsedata {
+                    self.traceMessage("Posted to Loggly, status = \(NSString(data: data, encoding:NSUTF8StringEncoding))")
                 } else {
-                    if let data = responsedata {
-                        self.traceMessage("Posted to Loggly, status = \(NSString(data: data, encoding:NSUTF8StringEncoding))")
-                    }
+                    self.traceMessage("Neither error nor responsedata, something's wrong")
                 }
                 if self.backgroundTaskIdentifier != UIBackgroundTaskInvalid {
                     self.endBackgroundTask()
                 }
-            })
+            }
+            task.resume()
         }
     }
 
