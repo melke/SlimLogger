@@ -35,14 +35,14 @@ struct SlimConfig {
 
     // Either let all logging through, or specify a list of enabled source files.
     // So, either let all files log:
-    static let sourceFilesThatShouldLog:SourceFilesThatShouldLog = .All
+    static let sourceFilesThatShouldLog:SourceFilesThatShouldLog = .all
     // Or let specific files log:
-    static let sourceFilesThatShouldLog:SourceFilesThatShouldLog = .EnabledSourceFiles([
+    static let sourceFilesThatShouldLog:SourceFilesThatShouldLog = .enabledSourceFiles([
              "AppDelegate.swift",
              "AnotherSourceFile.swift"
     ])
     // Or don't let any class log (use to turn off all logging to for all destinations):
-    static let sourceFilesThatShouldLog:SourceFilesThatShouldLog = .None
+    static let sourceFilesThatShouldLog:SourceFilesThatShouldLog = .none
 } 
 ```
 
