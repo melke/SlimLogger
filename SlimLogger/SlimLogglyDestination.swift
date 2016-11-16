@@ -11,12 +11,12 @@ private let logglyQueue: DispatchQueue = DispatchQueue(label: "slimlogger.loggly
 class SlimLogglyDestination: LogDestination {
 
     var userid:String?
-    private let dateFormatter = DateFormatter()
-    private var buffer:[String] = [String]()
-    private var backgroundTaskIdentifier: UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
-    private lazy var standardFields:NSDictionary = {
+    fileprivate let dateFormatter = DateFormatter()
+    fileprivate var buffer:[String] = [String]()
+    fileprivate var backgroundTaskIdentifier: UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
+    fileprivate lazy var standardFields:NSDictionary = {
         let dict = NSMutableDictionary()
-        dict["lang"] = NSLocale.preferredLanguages[0]
+        dict["lang"] = Locale.preferredLanguages[0]
         if let infodict = Bundle.main.infoDictionary {
             if let appname = infodict["CFBundleName"] as? String {
                 dict["appname"] = appname
@@ -32,10 +32,10 @@ class SlimLogglyDestination: LogDestination {
         return dict
     }()
 
-    private var observer: NSObjectProtocol?
+    fileprivate var observer: NSObjectProtocol?
 
     init() {
-        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC") as TimeZone!
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         observer = NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "UIApplicationWillResignActiveNotification"), object: nil, queue: nil, using: {
             [unowned self] note in
@@ -83,7 +83,7 @@ class SlimLogglyDestination: LogDestination {
     }
 
 
-    func log<T>( message:@autoclosure () -> T, level:LogLevel, filename:String, line:Int) {
+    func log<T>( _ message:@autoclosure () -> T, level:LogLevel, filename:String, line:Int) {
         if level.rawValue < SlimLogglyConfig.logglyLogLevel.rawValue {
             // don't log
             return

@@ -20,16 +20,16 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    @IBAction func createLogentryButtonTapped(sender: AnyObject) {
+    @IBAction func createLogentryButtonTapped(_ sender: AnyObject) {
         Slim.debug("Debug log message")
         Slim.info("Info log message")
-        Slim.info(["Dictionary key": "Date: \(NSDate())","Another key":"Forza Bajen"])
+        Slim.info(["Dictionary key": "Date: \(Date())","Another key":"Forza Bajen"])
     }
 
-    @IBAction func traceLevelButtonTapped(sender: AnyObject) {
+    @IBAction func traceLevelButtonTapped(_ sender: AnyObject) {
         SlimConfig.consoleLogLevel = LogLevel.trace
     }
-    @IBAction func infoLevelButtonTapped(sender: AnyObject) {
+    @IBAction func infoLevelButtonTapped(_ sender: AnyObject) {
         SlimConfig.consoleLogLevel = LogLevel.info
     }
 }

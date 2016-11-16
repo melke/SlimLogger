@@ -7,7 +7,7 @@ struct SlimConfig {
 
     // Either let all logging through, or specify a list of enabled source files.
     // So, either let all files log:
-    static let sourceFilesThatShouldLog:SourceFilesThatShouldLog = .All
+    static let sourceFilesThatShouldLog:SourceFilesThatShouldLog = .all
     // Or let specific files log:
     // static let sourceFilesThatShouldLog:SourceFilesThatShouldLog = .EnabledSourceFiles([
     //         "AppDelegate.swift",
