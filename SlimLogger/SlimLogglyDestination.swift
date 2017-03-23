@@ -93,10 +93,9 @@ class SlimLogglyDestination: LogDestination {
         let mutableDict:NSMutableDictionary = NSMutableDictionary()
         var messageIsaDictionary = false
         if let msgdict = message() as? NSDictionary {
-            if let nsmsgdict = msgdict as? [NSObject : AnyObject] {
-                mutableDict.addEntries(from: nsmsgdict)
-                messageIsaDictionary = true
-            }
+            let nsmsgdict = msgdict as [NSObject : AnyObject]
+            mutableDict.addEntries(from: nsmsgdict)
+            messageIsaDictionary = true
         }
         if !messageIsaDictionary {
             mutableDict.setObject("\(message())", forKey: "rawmsg" as NSCopying)
