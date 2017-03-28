@@ -137,7 +137,7 @@ class SlimLogglyDestination: LogDestination {
                 if let anError = error {
                     self.traceMessage(msg: "Error from Loggly: \(anError)")
                 } else if let data = responsedata {
-                    self.traceMessage(msg: "Posted to Loggly, status = \(NSString(data: data, encoding:String.Encoding.utf8.rawValue))")
+                    self.traceMessage(msg: "Posted to Loggly, status = \(String(describing: NSString(data: data, encoding:String.Encoding.utf8.rawValue)))")
                 } else {
                     self.traceMessage(msg: "Neither error nor responsedata, something's wrong")
                 }
