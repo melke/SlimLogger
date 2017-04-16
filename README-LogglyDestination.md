@@ -3,16 +3,16 @@
 The Loggly destination logs to the cloud service [Loggly](https://www.loggly.com/). Log messages will be locally saved in a buffer
 and posted to Loggly at app exit or when a configurable amount of log messages has been logged.
 
-##Installation
+## Installation
 
   * Add SlimLogglyDestination.swift and SlimLogglyDestinationConfig.template to your project
   * Rename SlimLogglyDestinationConfig.template to SlimLogglyDestinationConfig.swift
 
-##Configuration
+## Configuration
   
   * Edit SlimLogglyDestinationConfig.swift and change the api key and app name in the Loggly URL. (See instructions in the config file)
 
-##Usage
+## Usage
 
 In `didFinishLaunchingWithOptions` in your app delegate, add the Loggly destination:
 
@@ -40,7 +40,7 @@ to Loggly. This makes it much easier to do filtered field searches in Loggly.
 Word of warning, don't use too many different keys, it will make it harder to get a good overlook of your data 
 in the Loggly UI. Figure out smart keys that you can reuse in many of your log statements.
 
-##Tracking users
+## Tracking users
 
 To track a specific user you can set the userid property on the SlimLogglyDestination object. The userid
 will then be included in every log statement until the app is terminated by iOS.
@@ -49,11 +49,11 @@ Let's say that a user complains about having problems in your app. You can then 
 that this user has created. You can also have some secret button in your app, and when the user taps this
 button, you can set the log level to a finer level in SlimLogglyConfig. Pretty nice, huh?
 
-##Feedback and Contribution
+## Feedback and Contribution
 
 All feedback and contribution is very appreciated. Please send pull requests, create issues
 or just send an email to [mats.melke@gmail.com](mailto:mats.melke@gmail.com).
 
-##License
+## License
 
 * Copyright (c) 2015- Mats Melke. Please see LICENSE for details.
