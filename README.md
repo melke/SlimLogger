@@ -4,7 +4,7 @@ SlimLogger is a small logging utility written entirely in Swift, without any dep
 SlimLogger is deliberately designed to be as slim as possible. 
 SlimLogger tries to be as lean as possible, but still flexible enough to fit the requirements for most projects.
 
-##Features
+## Features
 
   * **Log levels** - Log at different log levels. Log levels are set by log destination, not by class.
   * **Log filtering** - Enable logging from all your source files, or enable logging only for a list of source files.
@@ -16,12 +16,12 @@ SlimLogger tries to be as lean as possible, but still flexible enough to fit the
   * **Async, serial logging** - Logging is done asynchronously on a separate serial thread, making sure that log entries are printed in the correct
   order, without blocking the main thread.
   
-##Installation
+## Installation
 
   1. Rename `SlimLoggerConfig.template` to `SlimLoggerConfig.swift`
   2. Add `SlimLogger.swift` and `SlimLoggerConfig.swift` to your project
   
-##Configuration
+## Configuration
 
 Edit the SlimConfig struct in `SlimLoggerConfig.swift`
  
@@ -46,7 +46,7 @@ struct SlimConfig {
 } 
 ```
 
-##Usage
+## Usage
 
 ```swift
 Slim.trace("message")    
@@ -60,13 +60,13 @@ Slim.fatal("message")
 The message does not have to be a String. It can be any object, or any expression that returns an object. However, if the type 
 of the returned object does not implement Printable, the output would not be interesting.
 
-##Feedback and Contribution
+## Feedback and Contribution
 
 All feedback and contribution is very appreciated. For example, contribute with a new log destination class! 
 Please send pull requests, create issues
 or just send an email to [mats.melke@gmail.com](mailto:mats.melke@gmail.com).
 
-##License
+## License
 
 * Copyright (c) 2015- Mats Melke. Please see LICENSE for details.
 
