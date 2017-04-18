@@ -93,10 +93,9 @@ class SlimLogglyDestination: LogDestination {
         let mutableDict:NSMutableDictionary = NSMutableDictionary()
         var messageIsaDictionary = false
         if let msgdict = message() as? NSDictionary {
-            if let nsmsgdict = msgdict as? [NSObject : AnyObject] {
-                mutableDict.addEntries(from: nsmsgdict)
-                messageIsaDictionary = true
-            }
+            let nsmsgdict = msgdict as [NSObject : AnyObject]
+            mutableDict.addEntries(from: nsmsgdict)
+            messageIsaDictionary = true
         }
         if !messageIsaDictionary {
             mutableDict.setObject("\(message())", forKey: "rawmsg" as NSCopying)
@@ -138,7 +137,7 @@ class SlimLogglyDestination: LogDestination {
                 if let anError = error {
                     self.traceMessage(msg: "Error from Loggly: \(anError)")
                 } else if let data = responsedata {
-                    self.traceMessage(msg: "Posted to Loggly, status = \(NSString(data: data, encoding:String.Encoding.utf8.rawValue))")
+                    self.traceMessage(msg: "Posted to Loggly, status = \(String(describing: NSString(data: data, encoding:String.Encoding.utf8.rawValue)))")
                 } else {
                     self.traceMessage(msg: "Neither error nor responsedata, something's wrong")
                 }
