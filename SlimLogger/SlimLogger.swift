@@ -106,7 +106,7 @@ open class Slim {
             return cleanedfile
         } else {
             var retval = ""
-            let items = filename.characters.split{$0 == "/"}.map(String.init)
+            let items = filename.split{$0 == "/"}.map { String($0) }
             
             
             if items.count > 0 {

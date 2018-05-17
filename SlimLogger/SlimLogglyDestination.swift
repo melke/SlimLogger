@@ -35,7 +35,7 @@ class SlimLogglyDestination: LogDestination {
     fileprivate var observer: NSObjectProtocol?
 
     init() {
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC") as TimeZone!
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         observer = NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "UIApplicationWillResignActiveNotification"), object: nil, queue: nil, using: {
             [unowned self] note in
@@ -92,11 +92,9 @@ class SlimLogglyDestination: LogDestination {
         var jsonstr = ""
         let mutableDict:NSMutableDictionary = NSMutableDictionary()
         var messageIsaDictionary = false
-        if let msgdict = message() as? NSDictionary {
-            if let nsmsgdict = msgdict as? [NSObject : AnyObject] {
-                mutableDict.addEntries(from: nsmsgdict)
-                messageIsaDictionary = true
-            }
+        if let msgdict = message() as? [NSObject : AnyObject] {
+            mutableDict.addEntries(from: msgdict)
+            messageIsaDictionary = true
         }
         if !messageIsaDictionary {
             mutableDict.setObject("\(message())", forKey: "rawmsg" as NSCopying)
@@ -138,7 +136,7 @@ class SlimLogglyDestination: LogDestination {
                 if let anError = error {
                     self.traceMessage(msg: "Error from Loggly: \(anError)")
                 } else if let data = responsedata {
-                    self.traceMessage(msg: "Posted to Loggly, status = \(NSString(data: data, encoding:String.Encoding.utf8.rawValue))")
+                    self.traceMessage(msg: "Posted to Loggly, status = \(String(describing: NSString(data: data, encoding:String.Encoding.utf8.rawValue)))")
                 } else {
                     self.traceMessage(msg: "Neither error nor responsedata, something's wrong")
                 }
