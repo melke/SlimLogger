@@ -49,13 +49,8 @@ open class Slim {
     var cleanedFilenamesCache: NSCache<AnyObject, AnyObject> = NSCache()
 
     init() {
-        
         if SlimConfig.enableConsoleLogging {
             logDestinations.append(ConsoleDestination())
-        }
-        
-        if SlimConfig.enableCloudLogging {
-            logDestinations.append(SlimLogglyDestination())
         }
     }
 
