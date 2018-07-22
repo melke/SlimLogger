@@ -10,12 +10,12 @@ private let logglyQueue: DispatchQueue = DispatchQueue(label: "slimlogger.loggly
 
 class SlimLogglyDestination: LogDestination {
 
-    var userid:String?
+    var userid: String?
     fileprivate let dateFormatter = DateFormatter()
-    fileprivate var buffer:[String] = [String]()
+    fileprivate var buffer: [String] = []
     fileprivate var backgroundTaskIdentifier: UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
-    fileprivate lazy var standardFields:NSDictionary = {
-        let dict = NSMutableDictionary()
+    fileprivate lazy var standardFields: [String: String] = {
+        var dict: [String: String] = [:]
         dict["lang"] = Locale.preferredLanguages[0]
         if let infodict = Bundle.main.infoDictionary {
             if let appname = infodict["CFBundleName"] as? String {
@@ -35,7 +35,7 @@ class SlimLogglyDestination: LogDestination {
     fileprivate var observer: NSObjectProtocol?
 
     init() {
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC") as TimeZone!
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")!
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         observer = NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "UIApplicationWillResignActiveNotification"), object: nil, queue: nil, using: {
             [unowned self] note in
@@ -54,13 +54,12 @@ class SlimLogglyDestination: LogDestination {
             NotificationCenter.default.removeObserver(observer)
         }
     }
-    
-    private func toJson(dictionary: NSDictionary) -> NSData? {
 
+    private func toJson(dictionary: NSDictionary) -> Data? {
         var err: NSError?
         do {
             let json = try JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions(rawValue: 0))
-            return json as NSData?
+            return json
         } catch let error1 as NSError {
             err = error1
             let error = err?.description ?? "nil"
@@ -69,40 +68,36 @@ class SlimLogglyDestination: LogDestination {
         }
     }
 
-    private func toJsonString(data: NSData) -> String {
-        if let jsonstring = NSString(data: data as Data, encoding: String.Encoding.utf8.rawValue) {
-            return jsonstring as String
+    private func toJsonString(data: Data) -> String {
+        if let jsonstring = String(data: data, encoding: .utf8) {
+            return jsonstring
         } else {
             return ""
         }
     }
 
-
     func generateRandomNumberAsString() -> String {
         return String(arc4random_uniform(999999))
     }
 
-
-    func log<T>( _ message:@autoclosure () -> T, level:LogLevel, filename:String, line:Int) {
+    func log<T>( _ message: @autoclosure () -> T, level: LogLevel, filename: String, line: Int) {
         if level.rawValue < SlimLogglyConfig.logglyLogLevel.rawValue {
             // don't log
             return
         }
 
         var jsonstr = ""
-        let mutableDict:NSMutableDictionary = NSMutableDictionary()
+        let mutableDict: NSMutableDictionary = NSMutableDictionary()
         var messageIsaDictionary = false
-        if let msgdict = message() as? NSDictionary {
-            if let nsmsgdict = msgdict as? [NSObject : AnyObject] {
-                mutableDict.addEntries(from: nsmsgdict)
-                messageIsaDictionary = true
-            }
+        if let msgdict = message() as? [NSObject : AnyObject] {
+            mutableDict.addEntries(from: msgdict)
+            messageIsaDictionary = true
         }
         if !messageIsaDictionary {
             mutableDict.setObject("\(message())", forKey: "rawmsg" as NSCopying)
         }
         mutableDict.setObject(level.string, forKey: "level" as NSCopying)
-        mutableDict.setObject(dateFormatter.string(from: NSDate() as Date), forKey: "timestamp" as NSCopying)
+        mutableDict.setObject(dateFormatter.string(from: Date()), forKey: "timestamp" as NSCopying)
         mutableDict.setObject("\(filename):\(line)", forKey: "sourcelocation" as NSCopying)
         mutableDict.addEntries(from: standardFields as [NSObject : AnyObject])
         if let user = self.userid {
@@ -115,7 +110,7 @@ class SlimLogglyDestination: LogDestination {
         addLogMsgToBuffer(msg: jsonstr)
     }
 
-    private func addLogMsgToBuffer(msg:String) {
+    private func addLogMsgToBuffer(msg: String) {
         logglyQueue.async {
             self.buffer.append(msg)
             if self.buffer.count > SlimLogglyConfig.maxEntriesInBuffer {
@@ -126,19 +121,20 @@ class SlimLogglyDestination: LogDestination {
         }
     }
 
-    private func sendLogsInBuffer(stringbuffer:[String]) {
+    private func sendLogsInBuffer(stringbuffer: [String]) {
         let allMessagesString = stringbuffer.joined(separator: "\n")
         self.traceMessage(msg: "LOGGLY: will try to post \(allMessagesString)")
-        if let allMessagesData = (allMessagesString as NSString).data(using: String.Encoding.utf8.rawValue) {
-            let urlRequest = NSMutableURLRequest(url: NSURL(string: SlimLogglyConfig.logglyUrlString)! as URL)
-            urlRequest.httpMethod = "POST"
-            urlRequest.httpBody = allMessagesData
+        if let url = URL(string: SlimLogglyConfig.logglyUrlString),
+            let allMessagesData = allMessagesString.data(using: .utf8) {
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.httpBody = allMessagesData
             let session = URLSession.shared
-            let task = session.dataTask(with: urlRequest as URLRequest, completionHandler: {(responsedata, response, error) in
+            let task = session.dataTask(with: request, completionHandler: {(responsedata, response, error) in
                 if let anError = error {
                     self.traceMessage(msg: "Error from Loggly: \(anError)")
                 } else if let data = responsedata {
-                    self.traceMessage(msg: "Posted to Loggly, status = \(NSString(data: data, encoding:String.Encoding.utf8.rawValue))")
+                    self.traceMessage(msg: "Posted to Loggly, status = \(String(data: data, encoding: .utf8) ?? "-")")
                 } else {
                     self.traceMessage(msg: "Neither error nor responsedata, something's wrong")
                 }
@@ -158,10 +154,9 @@ class SlimLogglyDestination: LogDestination {
         }
     }
 
-    private func traceMessage(msg:String) {
+    private func traceMessage(msg: String) {
         if SlimConfig.enableConsoleLogging && SlimLogglyConfig.logglyLogLevel == LogLevel.trace {
             print(msg)
         }
     }
 }
-
