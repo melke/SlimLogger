@@ -59,34 +59,34 @@ open class Slim {
     }
 
     open class func trace<T>( _ message: @autoclosure () -> T, filename: String = #file, line: Int = #line) {
-        slim.logInternal(message, level: LogLevel.trace, filename: filename, line: line)
+        slim.logInternal(message(), level: LogLevel.trace, filename: filename, line: line)
     }
 
     open class func debug<T>( _ message: @autoclosure () -> T, filename: String = #file, line: Int = #line) {
-        slim.logInternal(message, level: LogLevel.debug, filename: filename, line: line)
+        slim.logInternal(message(), level: LogLevel.debug, filename: filename, line: line)
     }
 
     open class func info<T>( _ message: @autoclosure () -> T, filename: String = #file, line: Int = #line) {
-        slim.logInternal(message, level: LogLevel.info, filename: filename, line: line)
+        slim.logInternal(message(), level: LogLevel.info, filename: filename, line: line)
     }
 
     open class func warn<T>( _ message: @autoclosure () -> T, filename: String = #file, line: Int = #line) {
-        slim.logInternal(message, level: LogLevel.warn, filename: filename, line: line)
+        slim.logInternal(message(), level: LogLevel.warn, filename: filename, line: line)
     }
 
     open class func error<T>( _ message: @autoclosure () -> T, filename: String = #file, line: Int = #line) {
-        slim.logInternal(message, level: LogLevel.error, filename: filename, line: line)
+        slim.logInternal(message(), level: LogLevel.error, filename: filename, line: line)
     }
 
     open class func fatal<T>( _ message: @autoclosure () -> T, filename: String = #file, line: Int = #line) {
-        slim.logInternal(message, level: LogLevel.fatal, filename: filename, line: line)
+        slim.logInternal(message(), level: LogLevel.fatal, filename: filename, line: line)
     }
 
     fileprivate func logInternal<T>( _ message: @autoclosure () -> T, level: LogLevel, filename: String, line: Int) {
         let cleanedfile = cleanedFilename(filename)
         if isSourceFileEnabled(cleanedfile) {
             for dest in logDestinations {
-                dest.log(message, level: level, filename: cleanedfile, line: line)
+                dest.log(message(), level: level, filename: cleanedfile, line: line)
             }
         }
     }

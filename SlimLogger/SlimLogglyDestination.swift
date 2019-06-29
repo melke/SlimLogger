@@ -13,7 +13,7 @@ class SlimLogglyDestination: LogDestination {
     var userid: String?
     fileprivate let dateFormatter = DateFormatter()
     fileprivate var buffer: [String] = []
-    fileprivate var backgroundTaskIdentifier: UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
+    fileprivate var backgroundTaskIdentifier: UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
     fileprivate lazy var standardFields: [String: String] = {
         var dict: [String: String] = [:]
         dict["lang"] = Locale.preferredLanguages[0]
@@ -138,7 +138,7 @@ class SlimLogglyDestination: LogDestination {
                 } else {
                     self.traceMessage(msg: "Neither error nor responsedata, something's wrong")
                 }
-                if self.backgroundTaskIdentifier != UIBackgroundTaskInvalid {
+                if self.backgroundTaskIdentifier != UIBackgroundTaskIdentifier.invalid {
                     self.endBackgroundTask()
                 }
             })
@@ -147,9 +147,9 @@ class SlimLogglyDestination: LogDestination {
     }
 
     private func endBackgroundTask() {
-        if self.backgroundTaskIdentifier != UIBackgroundTaskInvalid {
-            UIApplication.shared.endBackgroundTask(self.backgroundTaskIdentifier)
-            self.backgroundTaskIdentifier = UIBackgroundTaskInvalid
+        if self.backgroundTaskIdentifier != UIBackgroundTaskIdentifier.invalid {
+            UIApplication.shared.endBackgroundTask(convertToUIBackgroundTaskIdentifier(self.backgroundTaskIdentifier.rawValue))
+            self.backgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
             print("Ending background task")
         }
     }
@@ -159,4 +159,9 @@ class SlimLogglyDestination: LogDestination {
             print(msg)
         }
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIBackgroundTaskIdentifier(_ input: Int) -> UIBackgroundTaskIdentifier {
+	return UIBackgroundTaskIdentifier(rawValue: input)
 }
